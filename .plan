@@ -1,0 +1,9 @@
+app loads
+  looks in localstorage for userid
+    if userid,
+      load questions that dont contain userid
+    else
+      set userid in localstorage
+
+answer question
+  updates question with userid
