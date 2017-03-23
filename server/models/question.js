@@ -2,7 +2,7 @@
 
 module.exports = function(sequelize, DataTypes) {
   var Question = sequelize.define("Question", {
-    question: DataTypes.STRING,
+    title: DataTypes.STRING,
     responses: {
       type: DataTypes.STRING,
       set: function(val) {

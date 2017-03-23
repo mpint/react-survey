@@ -9,11 +9,11 @@ module.exports = {
   Question: {
     seed: true,
     content: [{
-      question: 'what is life? is it all worth living?',
+      title: 'what is life? is it all worth living?',
       responses: [ 'something', 'nothing', 'everything' ]
     },
     {
-      question: 'is it working?',
+      title: 'is it working?',
       responses: [ 'yes', 'no', 'maybe' ]
     }]
   },
