@@ -4,7 +4,6 @@ import QuestionTitle from './QuestionTitle';
 import ResponseList from './ResponseList';
 
 const SurveyQuestion = (props) => {
-  console.log('props.selected', props.selected);
   return (
     <div className="survey-question">
       <QuestionTitle title={props.title}/>

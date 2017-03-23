@@ -3,7 +3,20 @@ var router = express.Router();
 
 /* GET question listing. */
 router.get('/', function (req, res, next) {
-  res.send('hi');
+  res.json([
+      {
+        id: '1241',
+        title: 'what is life? is it all worth living?',
+        responses: [ 'something', 'nothing', 'everything' ],
+        responseCount: [3, 3, 3]
+      },
+      {
+        id: '1412',
+        title: 'is it working?',
+        responses: [ 'yes', 'no', 'maybe' ],
+        responseCount: [6, 6, 2]
+      }
+    ]);
 });
 
 router.post('/', function (req, res, next) {

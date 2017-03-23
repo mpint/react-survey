@@ -1,4 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import NavBar from '../components/NavBar';
 import config from '../config';
 
@@ -14,7 +16,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <NavBar />
+        <NavBar showAdminMenu={this.props.authState.isAdmin}/>
         { this.props.children }
       </div>
     );
@@ -25,4 +27,11 @@ App.childContextTypes = {
   config: PropTypes.object.isRequired
 };
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    authState: state.authAppState
+  };
+}
+export default connect(
+  mapStateToProps
+)(App);

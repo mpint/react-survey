@@ -5,7 +5,18 @@ export const main = {
 export const pages = {
   rootSlug: '/',
   admin: {
-    slug: 'admin'
+    root: {
+      slug: 'admin',
+      title: 'Admin'
+    },
+    create: {
+      slug: 'create',
+      title: 'New Question'
+    },
+    list: {
+      slug: 'list',
+      title: 'List Responses'
+    },
   },
   survey: {}
 }

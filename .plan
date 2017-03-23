@@ -7,3 +7,7 @@ app loads
 
 answer question
   updates question with userid
+
+title = 'asdsaee'
+responses = ['asdfa', 'gdsaadsf', 'grege', 'zcxzc']
+responseCount: [5, 4, 6, 1]

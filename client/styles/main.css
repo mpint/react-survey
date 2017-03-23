@@ -1,3 +1,14 @@
 body {
   padding-top: 5rem;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+.bump-right {
+  margin-right: 10px;
+}
+.bump-left {
+  margin-left: 10px;
+}

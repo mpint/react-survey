@@ -1,3 +1,16 @@
-.admin-page {
-  color: red;
+.admin-welcome-page .message {
+  margin: 5rem 0;
+}
+
+.admin-create-page .question-content {
+  margin: 2rem 0;
+}
+
+.admin-create-page .question-response {
+  margin-bottom: 1rem;
+  padding-left: 35px;
+}
+
+.admin-list-page .chart-placeholder {
+  height: 28rem;
 }

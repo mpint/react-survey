@@ -6,8 +6,8 @@ import SurveyQuestion from '../components/SurveyQuestion';
 import { first } from 'lodash';
 
 class SurveyPage extends Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor() {
+    super();
 
     this.state = {
       showSurveyQuestion: true
@@ -57,14 +57,14 @@ class SurveyPage extends Component {
       );
     };
 
-    const question = first(this.props.surveyState.questionList);
+    const question = first(this.props.surveyState.workingQuestionList);
     const selected = this.props.surveyState.currentResponse;
 
     return (
       <div style={ styles.root } className="survey-page d-flex align-items-center justify-content-around">
           { question ?
             rerenderSurveyQuestion(question, selected) :
-            <h1> No more questions left! </h1>
+            <h3> We're all out of questions - Come back later! </h3>
           }
       </div>
     );

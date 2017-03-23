@@ -1,11 +1,55 @@
-import { put, take, fork, call } from 'redux-saga/effects';
+import { put, take, call } from 'redux-saga/effects';
 import { actions,
-	APP_LOADED_SAGA
+	APP_LOADED_SAGA,
+	LOGIN_SUBMIT_SAGA,
 } from './auth.ducks';
+import { postLogin } from '../requests';
+import guid from 'guid';
+
 export function* emitAppLoaded() {
-	return yield put(actions.appLoaded());
+	yield put(actions.appLoaded());
+}
+
+export function* loginSubmitSaga(username, password) {
+	try {
+		yield put(actions.loginSubmitRequest());
+
+		yield call(postLogin, username, password);
+
+		yield put(actions.loginSubmitSuccess());
+	} catch (err) {
+		yield put(actions.loginSubmitError());
+	}
+}
+
+export function* watchLoginSubmit(username, password) {
+	while(true) {
+		const { username, password } = yield take(LOGIN_SUBMIT_SAGA);
+
+		yield call(loginSubmitSaga, username, password);
+	}
+}
+
+export function* watchAppLoaded(username, password) {
+	while(true) {
+		yield take(APP_LOADED_SAGA);
+
+		const storedUser = yield localStorage.getItem('appsumo-user');
+		if (storedUser) {
+			yield put(actions.restoreExistingUser(storedUser));
+		} else {
+			const newUserId = guid.raw();
+
+			yield localStorage.setItem('appsumo-user', newUserId);
+
+			yield localStorage.setItem('appsumo-questions', JSON.stringify([]));
+
+			yield put(actions.assignNewUserId(newUserId));
+		}
+	}
 }
 
 export default [
-	emitAppLoaded()
+	watchLoginSubmit(),
+	watchAppLoaded(),
 ];
