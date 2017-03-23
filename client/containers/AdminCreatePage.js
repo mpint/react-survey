@@ -2,9 +2,10 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actions } from '../state/auth.ducks';
+import { actions } from '../state/survey.ducks';
 import { compact } from 'lodash';
-class AdminCreatePage extends Component {
+class
+AdminCreatePage extends Component {
   constructor() {
     super();
     this.initialState = {
@@ -52,7 +53,6 @@ class AdminCreatePage extends Component {
     });
   }
 
-
   render() {
     const renderResponseList = (list) => {
       return list.length ?
@@ -99,8 +99,8 @@ class AdminCreatePage extends Component {
 
     return (
       <div className="admin-create-page">
-        <button onClick={this.handleSubmit} type="submit" className="btn btn-primary">Submit</button>
-        <button onClick={this.resetState} className="btn btn-default bump-right">Reset</button>
+        <button onClick={this.handleSubmit} type="submit" className="btn btn-primary bump-right">Submit</button>
+        <button onClick={this.resetState} className="btn btn-default">Reset</button>
 
         <div className="question-content">
           <div className="input-group">
@@ -122,7 +122,7 @@ class AdminCreatePage extends Component {
 
 function mapStateToProps(state) {
   return {
-    authState: state.authAppState
+    surveyState: state.surveyAppState
   };
 }
 

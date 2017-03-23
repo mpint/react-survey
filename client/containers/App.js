@@ -5,12 +5,8 @@ import NavBar from '../components/NavBar';
 import config from '../config';
 
 class App extends Component {
-  componentWillMount = () => {
-    console.log('yo')
-  }
-
   getChildContext = () =>  {
-    return {config};
+    return { config };
   }
 
   render() {

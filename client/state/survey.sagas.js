@@ -1,19 +1,32 @@
 import { APP_LOADED_SAGA } from './auth.ducks';
 import { actions,
-	SUBMIT_SURVEY_QUESTION_SAGA
+	SUBMIT_SURVEY_QUESTION_SAGA,
+	CREATE_SURVEY_QUESTION_SAGA
 } from './survey.ducks';
 import { put, call, take, fork } from 'redux-saga/effects';
-import { postSurveyQuestion, getSurveyQuestions } from '../requests';
+import { postSurveyQuestion, putSurveyQuestion, getSurveyQuestions } from '../requests';
 
 export function* submitSurveySaga(userId, questionId, response) {
 	try {
 		yield put(actions.submitSurveyQuestionRequest());
 
-		yield call(postSurveyQuestion, userId, questionId, response);
+		yield call(putSurveyQuestion, userId, questionId, response);
 
 		yield put(actions.submitSurveyQuestionSuccess());
 	} catch (err) {
 		yield put(actions.submitSurveyQuestionError());
+	}
+}
+
+export function* createSurveySaga(question, responses) {
+	try {
+		yield put(actions.createSurveyQuestionRequest());
+
+		yield call(postSurveyQuestion, question, responses);
+
+		yield put(actions.createSurveyQuestionSuccess());
+	} catch (err) {
+		yield put(actions.createSurveyQuestionError());
 	}
 }
 
@@ -51,6 +64,18 @@ export function* watchSubmitSurvey() {
 	}
 }
 
+export function* watchCreateSurveyQuestion() {
+	while(true) {
+		const { question, responses } = yield take(CREATE_SURVEY_QUESTION_SAGA);
+
+		const answeredQuestions = yield localStorage.getItem('appsumo-questions');
+
+		yield call(createSurveySaga, question, responses);
+		
+		yield call(getSurveyQuestionsSaga, JSON.parse(answeredQuestions));
+	}
+}
+
 export function* watchAppLoaded() {
 	while(true) {
 		yield take(APP_LOADED_SAGA);
@@ -63,5 +88,6 @@ export function* watchAppLoaded() {
 
 export default [
 	watchSubmitSurvey(),
+	watchCreateSurveyQuestion(),
 	watchAppLoaded(),
 ]

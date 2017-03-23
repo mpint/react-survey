@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export function postSurveyQuestion(userId, questionId, response) {
+export function putSurveyQuestion(userId, questionId, response) {
   return axios.put(
     `/api/question/${questionId}`,
     { userId, response },
@@ -8,6 +8,16 @@ export function postSurveyQuestion(userId, questionId, response) {
   )
   .then(({data}) => data);
 }
+
+export function postSurveyQuestion(question, responses) {
+  return axios.post(
+    `/api/question`,
+    { question, responses },
+    { responseType: 'json' }
+  )
+  .then(({data}) => data);
+}
+
 export function postLogin(username, password) {
   return axios.post(
     `/api/user`,
