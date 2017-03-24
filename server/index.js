@@ -1,9 +1,9 @@
+var fs = require('fs');
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-var fs = require('fs');
-
+var favicon = require('serve-favicon');
 var webpack = require('webpack');
 var config = require('../webpack.config');
 
@@ -20,6 +20,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
 app.use(require('webpack-hot-middleware')(compiler));
 
 app.use(logger('dev'));
+app.use(favicon(path.join(__dirname, 'favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
