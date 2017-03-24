@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-
 import QuestionTitle from './QuestionTitle';
 import ResponseList from './ResponseList';
 import { isNumber } from 'lodash';

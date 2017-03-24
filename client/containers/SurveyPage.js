@@ -15,7 +15,6 @@ class SurveyPage extends Component {
   }
 
   handleSurveyResponse = (responseIndex, e) => {
-    console.log('responseIndex', responseIndex);
     return this.props.actions.selectSurveyResponse(e.target.name, responseIndex);
   }
 
@@ -58,6 +57,10 @@ class SurveyPage extends Component {
       );
     };
 
+    const renderNoQuestionsMessage = () => (
+      <h3> We're all out of questions for you - Come back later! </h3>
+    );
+
     const question = first(this.props.surveyState.workingQuestionList);
     const selected = this.props.surveyState.currentResponse;
 
@@ -65,7 +68,7 @@ class SurveyPage extends Component {
       <div style={ styles.root } className="survey-page d-flex align-items-center justify-content-around">
           { question ?
             rerenderSurveyQuestion(question, selected) :
-            <h3> We're all out of questions - Come back later! </h3>
+            renderNoQuestionsMessage()
           }
       </div>
     );

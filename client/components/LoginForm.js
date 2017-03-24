@@ -25,7 +25,7 @@ class LoginForm extends React.Component {
           null;
 
       return (<small>{ message }</small>);
-    }
+    };
 
     return (
       <form onSubmit={this.handleSubmit}>

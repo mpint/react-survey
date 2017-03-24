@@ -8,6 +8,7 @@ class
 AdminCreatePage extends Component {
   constructor() {
     super();
+
     this.initialState = {
       question: '',
       responseList: []
@@ -65,7 +66,7 @@ AdminCreatePage extends Component {
             renderResponse(index, response);
         }) :
         renderLastResponse(0, '');
-    }
+    };
 
     const renderResponse = (index, response) => (
       <div key={index} className="question-response">

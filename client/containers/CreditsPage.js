@@ -28,7 +28,6 @@ const CreditsPage = () => {
         <Link href="mailto:mpinter09@gmail.com" target="_top">
           Contact me
         </Link>
-
       </h6>
     </div>
   );

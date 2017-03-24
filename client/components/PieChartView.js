@@ -24,7 +24,8 @@ const PieChartView = ({title, data}) => {
     <div className="d-flex chart-placeholder justify-content-center align-items-center">
       <small> still waiting on some responses </small>
     </div>
-  )
+  );
+  
   const totals = calculateResponseTotals(data.responseCount);
   return (
     <div className="question-chart">
