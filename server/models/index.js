@@ -11,7 +11,9 @@ Sequelize.Promise.longStackTraces();
 
 var db = {}, sequelize;
 if (process.env.DATABASE_URL) {
-  sequelize = new Sequelize(process.env.DATABASE_URL, config);
+  console.log('PROCESS.ENV.DATABASE_URL', process.env.DATABASE_URL);
+  console.log('PROCESS.ENV.NODE_ENV', process.env.NODE_ENV);
+  sequelize = new Sequelize(process.env.DATABASE_URL);
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
