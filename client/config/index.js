@@ -1,9 +1,13 @@
 export const main = {
-  appName: 'FancySurvey'
+  appName: 'ReactSurvey'
 }
 
 export const pages = {
   rootSlug: '/',
+  credits: {
+    slug: 'credits',
+    title: 'Credits'
+  },
   admin: {
     root: {
       slug: 'admin',

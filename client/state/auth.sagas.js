@@ -14,9 +14,9 @@ export function* loginSubmitSaga(username, password) {
 	try {
 		yield put(actions.loginSubmitRequest());
 
-		yield call(postLogin, username, password);
+		const result = yield call(postLogin, username, password);
 
-		yield put(actions.loginSubmitSuccess());
+		yield put(actions.loginSubmitSuccess(result));
 	} catch (err) {
 		yield put(actions.loginSubmitError());
 	}

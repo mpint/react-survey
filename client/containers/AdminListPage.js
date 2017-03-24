@@ -43,7 +43,7 @@ class AdminListPage extends Component {
     const { pristineQuestionList } = this.props.surveyState;
 
     const listItem = (question, index) => (
-      <li className="list-group-item">
+      <li key={ index } className="list-group-item">
         { question.title }
         <div className="ml-auto">
           <span className="badge badge-default badge-pill bump-right">{this.calculateResponseTotals(question.responseCount)}</span>

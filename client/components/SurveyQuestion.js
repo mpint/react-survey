@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 
 import QuestionTitle from './QuestionTitle';
 import ResponseList from './ResponseList';
+import { isNumber } from 'lodash';
 
 const SurveyQuestion = (props) => {
   return (
@@ -14,7 +15,7 @@ const SurveyQuestion = (props) => {
         onSelect={props.onSelect}/>
 
       <button
-        disabled={!props.selected.response}
+        disabled={!isNumber(props.selected.responseIndex)}
         type="button"
         className="btn btn-primary btn-lg"
         onClick={props.onSubmit}>

@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export function putSurveyQuestion(userId, questionId, response) {
+export function putSurveyQuestion(userId, questionId, responseIndex) {
   return axios.put(
     `/api/question/${questionId}`,
-    { userId, response },
+    { userId, responseIndex },
     { responseType: 'json' }
   )
   .then(({data}) => data);

@@ -14,8 +14,9 @@ class SurveyPage extends Component {
     };
   }
 
-  handleSurveyResponse = (e) => {
-    return this.props.actions.selectSurveyResponse(e.target.name, e.target.value);
+  handleSurveyResponse = (responseIndex, e) => {
+    console.log('responseIndex', responseIndex);
+    return this.props.actions.selectSurveyResponse(e.target.name, responseIndex);
   }
 
   handleSubmitSurvey = (e) => {
@@ -23,8 +24,8 @@ class SurveyPage extends Component {
       showSurveyQuestion: false
     });
 
-    const {questionId, response} = this.props.surveyState.currentResponse;
-    return this.props.actions.submitSurveyQuestionSaga(this.props.authState.userId, questionId, response);
+    const {questionId, responseIndex} = this.props.surveyState.currentResponse;
+    return this.props.actions.submitSurveyQuestionSaga(this.props.authState.userId, questionId, responseIndex);
   }
 
   render() {

@@ -26,6 +26,9 @@ AdminCreatePage extends Component {
     e.preventDefault();
     this.resetState();
     const validResponses = compact(this.state.responseList);
+
+    if (!validResponses.length) return;
+
     this.props.actions.createSurveyQuestionSaga(this.state.question, validResponses);
   }
 

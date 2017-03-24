@@ -1,5 +1,5 @@
 body {
-  padding-top: 5rem;
+  padding-top: 10rem;
 }
 
 .pointer {
@@ -11,4 +11,8 @@ body {
 }
 .bump-left {
   margin-left: 10px;
+}
+
+.navbar-toggler {
+  border: 1px solid hsl(208, 98%, 43%) !important;
 }

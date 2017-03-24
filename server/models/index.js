@@ -7,6 +7,8 @@ var env = process.env.NODE_ENV || 'development';
 var config = require(path.join(__dirname, '..', 'config', 'config.json'))[env];
 var dbSeed = require(path.join(__dirname, '..', 'config', 'seed'));
 
+Sequelize.Promise.longStackTraces();
+
 var db = {}, sequelize;
 if (process.env.DATABASE_URL) {
   sequelize = new Sequelize(process.env.DATABASE_URL, config);
@@ -28,14 +30,19 @@ Object.keys(db).forEach(function (modelName) {
     db[modelName].associate(db);
   }
 
-  db[modelName].sync({force: true}).then(function () {
-    if (dbSeed[modelName] && dbSeed[modelName].seed) {
-      dbSeed[modelName].content.forEach(function(row) {
-        db[modelName].create(row);
-      });
-    }
-  });
+  syncModelToDb(modelName);
 });
+
+function syncModelToDb(modelName) {
+  return db[modelName].sync({force: true})
+    .then(function () {
+      if (dbSeed[modelName] && dbSeed[modelName].seed) {
+        dbSeed[modelName].content.forEach(function(row) {
+          db[modelName].create(row);
+        });
+      }
+    });
+}
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

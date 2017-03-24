@@ -1,16 +1,17 @@
 import { APP_LOADED_SAGA } from './auth.ducks';
 import { actions,
 	SUBMIT_SURVEY_QUESTION_SAGA,
-	CREATE_SURVEY_QUESTION_SAGA
+	CREATE_SURVEY_QUESTION_SAGA,
+	GET_SURVEY_QUESTIONS_SAGA
 } from './survey.ducks';
 import { put, call, take, fork } from 'redux-saga/effects';
 import { postSurveyQuestion, putSurveyQuestion, getSurveyQuestions } from '../requests';
 
-export function* submitSurveySaga(userId, questionId, response) {
+export function* submitSurveySaga(userId, questionId, responseIndex) {
 	try {
 		yield put(actions.submitSurveyQuestionRequest());
 
-		yield call(putSurveyQuestion, userId, questionId, response);
+		yield call(putSurveyQuestion, userId, questionId, responseIndex);
 
 		yield put(actions.submitSurveyQuestionSuccess());
 	} catch (err) {
@@ -56,11 +57,21 @@ export function* updateSurveyLocalState(questionId) {
 
 export function* watchSubmitSurvey() {
 	while(true) {
-		const { userId, questionId, response } = yield take(SUBMIT_SURVEY_QUESTION_SAGA);
+		const { userId, questionId, responseIndex } = yield take(SUBMIT_SURVEY_QUESTION_SAGA);
 
-		yield fork(submitSurveySaga, userId, questionId, response);
+		yield fork(submitSurveySaga, userId, questionId, responseIndex);
 
 		yield fork(updateSurveyLocalState, questionId);
+	}
+}
+
+export function* watchGetSurveyQuestions() {
+	while(true) {
+		yield take(GET_SURVEY_QUESTIONS_SAGA);
+
+		const answeredQuestions = yield localStorage.getItem('appsumo-questions');
+
+		yield call(getSurveyQuestionsSaga, JSON.parse(answeredQuestions));
 	}
 }
 
@@ -71,7 +82,7 @@ export function* watchCreateSurveyQuestion() {
 		const answeredQuestions = yield localStorage.getItem('appsumo-questions');
 
 		yield call(createSurveySaga, question, responses);
-		
+
 		yield call(getSurveyQuestionsSaga, JSON.parse(answeredQuestions));
 	}
 }
@@ -80,13 +91,12 @@ export function* watchAppLoaded() {
 	while(true) {
 		yield take(APP_LOADED_SAGA);
 
-		const answeredQuestions = yield localStorage.getItem('appsumo-questions');
-
-		yield call(getSurveyQuestionsSaga, JSON.parse(answeredQuestions));
+		yield put(actions.getSurveyQuestionsSaga());
 	}
 }
 
 export default [
+	watchGetSurveyQuestions(),
 	watchSubmitSurvey(),
 	watchCreateSurveyQuestion(),
 	watchAppLoaded(),

@@ -1,13 +1,18 @@
 var express = require('express');
 var router = express.Router();
+var db = require('../models');
 
-/* GET users listing. */
-router.get('/', function (req, res, next) {
-  res.send('respond with a resource');
-});
 router.post('/', function (req, res, next) {
-  console.log('req.body', req.body);
-  res.send('respond with a resource');
+  if (!req.body.username || !req.body.password) {
+    return res.sendStatus(422);
+  }
+
+  db.User.login(req.body.username, req.body.password)
+    .then(function (stored) {
+      res.json(stored || false);
+    }).catch(function (err) {
+      res.sendStatus(500);
+    });
 });
 
 module.exports = router;

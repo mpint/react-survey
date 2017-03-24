@@ -1,12 +1,17 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actions } from '../state/auth.ducks';
+import { actions as authActions } from '../state/auth.ducks';
+import { actions as surveyActions } from '../state/survey.ducks';
 import LoginForm from '../components/LoginForm';
 
 class AdminPage extends Component {
   constructor() {
     super();
+  }
+
+  componentWillMount() {
+    this.props.actions.getSurveyQuestionsSaga();
   }
 
   render() {
@@ -15,6 +20,7 @@ class AdminPage extends Component {
         {this.props.authState.isAdmin ?
           this.props.children :
           <LoginForm
+            status={this.props.authState._request}
             submit={this.props.actions.loginSubmitSaga}/>
         }
       </div>
@@ -24,13 +30,17 @@ class AdminPage extends Component {
 
 function mapStateToProps(state) {
   return {
-    authState: state.authAppState
+    authState: state.authAppState,
+    surveyState: state.surveyAppState
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators({
+      ...authActions,
+      ...surveyActions
+    }, dispatch)
   };
 }
 

@@ -15,7 +15,7 @@ export const actions = {
 	restoreExistingUser: (userId) => ({ type: RESTORE_EXISTING_USER, userId }),
 	loginSubmitSaga: (username, password) => ({ type: LOGIN_SUBMIT_SAGA, username, password }),
 	loginSubmitRequest: () => ({ type: LOGIN_SUBMIT_REQUEST }),
-	loginSubmitSuccess: () => ({ type: LOGIN_SUBMIT_SUCCESS }),
+	loginSubmitSuccess: (result) => ({ type: LOGIN_SUBMIT_SUCCESS, result }),
 	loginSubmitError: () => ({ type: LOGIN_SUBMIT_ERROR }),
 };
 
@@ -49,9 +49,9 @@ export default function authAppState(state = initial, action) {
 					...state,
 					_request: {
 						isSending: false,
-						success: true
+						success: !!action.result
 					},
-					isAdmin: true
+					isAdmin: !!action.result
 				};
       case LOGIN_SUBMIT_ERROR:
 				return {

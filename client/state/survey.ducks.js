@@ -17,8 +17,8 @@ export const GET_SURVEY_QUESTIONS_SUCCESS = 'SURVEY/GET_SURVEY_QUESTIONS_SUCCESS
 export const GET_SURVEY_QUESTIONS_ERROR = 'SURVEY/GET_SURVEY_QUESTIONS_ERROR';
 
 export const actions = {
-	selectSurveyResponse: (id, response) => ({ type: SELECT_SURVEY_RESPONSE, id, response }),
-	submitSurveyQuestionSaga: (userId, questionId, response) => ({ type: SUBMIT_SURVEY_QUESTION_SAGA, userId, questionId, response }),
+	selectSurveyResponse: (id, responseIndex) => ({ type: SELECT_SURVEY_RESPONSE, id, responseIndex }),
+	submitSurveyQuestionSaga: (userId, questionId, responseIndex) => ({ type: SUBMIT_SURVEY_QUESTION_SAGA, userId, questionId, responseIndex }),
 	submitSurveyQuestionRequest: () => ({ type: SUBMIT_SURVEY_QUESTION_REQUEST }),
 	submitSurveyQuestionSuccess: () => ({ type: SUBMIT_SURVEY_QUESTION_SUCCESS }),
 	submitSurveyQuestionError: () => ({ type: SUBMIT_SURVEY_QUESTION_ERROR }),
@@ -26,7 +26,7 @@ export const actions = {
 	createSurveyQuestionRequest: () => ({ type: CREATE_SURVEY_QUESTION_REQUEST }),
 	createSurveyQuestionSuccess: () => ({ type: CREATE_SURVEY_QUESTION_SUCCESS }),
 	createSurveyQuestionError: () => ({ type: CREATE_SURVEY_QUESTION_ERROR }),
-	getSurveyQuestionsSaga: (question, responses) => ({ type: GET_SURVEY_QUESTIONS_SAGA, question, responses }),
+	getSurveyQuestionsSaga: () => ({ type: GET_SURVEY_QUESTIONS_SAGA }),
 	getSurveyQuestionsRequest: () => ({ type: GET_SURVEY_QUESTIONS_REQUEST }),
 	getSurveyQuestionsSuccess: (questionList, answeredQuestions) => ({ type: GET_SURVEY_QUESTIONS_SUCCESS, questionList, answeredQuestions }),
 	getSurveyQuestionsError: () => ({ type: GET_SURVEY_QUESTIONS_ERROR }),
@@ -39,7 +39,7 @@ export default function surveyAppState(state = initial, action) {
 					...state,
 					currentResponse: {
 						questionId: action.id,
-						response: action.response
+						responseIndex: action.responseIndex
 					}
 				};
       case SUBMIT_SURVEY_QUESTION_REQUEST:
@@ -110,7 +110,7 @@ export default function surveyAppState(state = initial, action) {
 						success: true
 					},
 					pristineQuestionList: [ ...action.questionList ],
-					workingQuestionList: action.questionList.filter((q) => !action.answeredQuestions.includes(q.id))
+					workingQuestionList: action.questionList.filter((q) => !action.answeredQuestions.includes(q.id.toString()))
 				};
 			case GET_SURVEY_QUESTIONS_ERROR:
 				return {

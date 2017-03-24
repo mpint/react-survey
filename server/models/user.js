@@ -6,19 +6,22 @@ module.exports = function(sequelize, DataTypes) {
     password: DataTypes.STRING
   }, {
     classMethods: {
-      associate: function(models) {
-        // Using additional options like CASCADE etc for demonstration
-        // Can also simply do Task.belongsTo(models.User);
-        User.belongsTo(models.Question, {
-          onDelete: "CASCADE",
-          foreignKey: {
-            allowNull: false
+      login: function(username, password) {
+        return User.findOne({
+          where: {
+            username: username,
+            password: password
           }
+        })
+        .then(function(stored) {
+          return stored ? {
+            username: stored.get('username'),
+            password: stored.get('password'),
+          } : null;
         });
       }
     }
   });
 
-  User.seed = true;
   return User;
 };

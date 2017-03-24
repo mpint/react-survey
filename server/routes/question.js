@@ -1,33 +1,41 @@
 var express = require('express');
 var router = express.Router();
-
+var db = require('../models');
 /* GET question listing. */
 router.get('/', function (req, res, next) {
-  res.json([
-      {
-        id: '1241',
-        title: 'what is life? is it all worth living?',
-        responses: [ 'something', 'nothing', 'everything' ],
-        responseCount: [3, 3, 3]
-      },
-      {
-        id: '1412',
-        title: 'is it working?',
-        responses: [ 'yes', 'no', 'maybe' ],
-        responseCount: [6, 6, 2]
-      }
-    ]);
+  db.Question.getAll()
+    .then(function (questionList) {
+      res.json(questionList);
+    }).catch(function (err) {
+      res.sendStatus(500);
+    })
 });
 
 router.post('/', function (req, res, next) {
-  console.log('req.body', req.body);
-  res.send('hi');
+  if (!req.body.question || !req.body.responses) {
+    return res.sendStatus(422);
+  }
+
+  db.Question.make(req.body.question, req.body.responses)
+    .then(function (updated) {
+      res.json(updated);
+    }).catch(function (err) {
+      res.sendStatus(500);
+    });
 });
 
 router.put('/:id', function (req, res, next) {
-  console.log('req.params', req.params);
-  console.log('req.body', req.body);
-  res.send('hi');
+  // ~ converts -1 to 0 and 0 to -1, i.e. truthy
+  if (!req.params.id || !~req.body.responseIndex) {
+    return res.sendStatus(422);
+  }
+
+  db.Question.tickResponse(req.params.id, req.body.responseIndex)
+    .then(function (updated) {
+      res.json(updated);
+    }).catch(function (err) {
+      res.sendStatus(500);
+    });
 });
 
 module.exports = router;

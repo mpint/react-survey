@@ -4,13 +4,13 @@ import Response from './Response';
 const ResponseList = (props) => {
   return (
     <div>
-      {props.responses.map((response, i) =>
+      {props.responses.map((response, responseIndex) =>
         <Response
-          key={i}
-          index={i}
+          key={responseIndex}
+          index={responseIndex}
           id={props.id}
           response={response}
-          onSelect={props.onSelect}/>
+          onSelect={props.onSelect.bind(this, responseIndex)}/>
       )}
     </div>
   );

@@ -20,17 +20,26 @@ const PieChartModal = ({title, data}) => {
     countList.reduce((out, current) => out + current, 0)
   );
 
+  const renderNoResponses = () => (
+    <div className="d-flex chart-placeholder justify-content-center align-items-center">
+      <small> still waiting on some responses </small>
+    </div>
+  )
+  const totals = calculateResponseTotals(data.responseCount);
   return (
     <div className="question-chart">
       <h5>{ title }</h5>
-      <small className="bump-left">{ `${calculateResponseTotals(data.responseCount)} responses`}</small>
-      <PieChart
-        data={convertQuestionDataToChart(data)}
-        width={400}
-        height={400}
-        radius={100}
-        innerRadius={20}
-        sectorBorderColor="white" />
+      <small className="bump-left">{ `${totals} responses`}</small>
+      {totals ?
+        <PieChart
+          data={convertQuestionDataToChart(data)}
+          width={400}
+          height={400}
+          radius={100}
+          innerRadius={20}
+          sectorBorderColor="white" /> :
+        renderNoResponses()
+      }
     </div>
   );
 };

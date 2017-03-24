@@ -14,6 +14,7 @@ export const surveyModel = {
   _request: statusProps,
   currentResponse: {
     questionId: String(),
+    responseIndex: Number(),
     response: String()
   },
   workingQuestionList: Array(),
