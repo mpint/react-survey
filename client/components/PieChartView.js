@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { PieChart } from 'react-d3';
 import { reduce, zip, chain } from 'lodash';
 
-const PieChartModal = ({title, data}) => {
+const PieChartView = ({title, data}) => {
   const normalizeValue = (value, responseCount) => {
     const totals = calculateResponseTotals(responseCount);
     const normalizedRatio = 1 - ((totals - value) / totals);
@@ -44,9 +44,9 @@ const PieChartModal = ({title, data}) => {
   );
 };
 
-PieChartModal.propTypes = {
+PieChartView.propTypes = {
   title: PropTypes.string.isRequired,
-  data: PropTypes.array.isRequired
+  data: PropTypes.object.isRequired
 };
 
-export default PieChartModal;
+export default PieChartView;

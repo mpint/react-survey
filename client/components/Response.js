@@ -13,14 +13,14 @@ const Response = ({index, id, response, onSelect}) => {
       <input disabled
         type="text"
         className="form-control"
-        value={`${index}. ${response}`}/>
+        value={`${index + 1}. ${response}`}/>
     </div>
   );
 }
 
 Response.propTypes = {
   index: PropTypes.number.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   response: PropTypes.string.isRequired,
   onSelect: PropTypes.func.isRequired
 };

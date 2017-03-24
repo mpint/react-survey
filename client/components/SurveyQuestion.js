@@ -26,7 +26,7 @@ const SurveyQuestion = (props) => {
 };
 
 SurveyQuestion.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   selected: PropTypes.object.isRequired,
   responses: PropTypes.array.isRequired,

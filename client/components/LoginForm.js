@@ -19,7 +19,6 @@ class LoginForm extends React.Component {
 
   render() {
     const renderStatus = (status) => {
-      console.log('status', status);
       const message = status.isSending ?
         'working...' : (!status.isSending && !status.success) ?
           'bad credentials' :

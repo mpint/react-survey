@@ -17,7 +17,7 @@ const ResponseList = (props) => {
 };
 
 ResponseList.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   responses: PropTypes.array.isRequired,
   onSelect: PropTypes.func.isRequired
 };
