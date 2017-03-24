@@ -1,9 +1,6 @@
 var spawn = require('child_process').spawn;
+var engine = process.env.NODE_ENV === 'production' ? 'node' : 'nodemon';
 
-var options = {
-  stdio: 'inherit'
-};
-
-spawn('nodemon', [ __dirname + '/www' ], {
+spawn(engine, [ __dirname + '/www' ], {
   stdio: 'inherit'
 });
