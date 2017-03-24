@@ -15,7 +15,7 @@ module.exports = {
         responseCount: [3, 3, 3, 2, 6]
       },
       {
-        title: 'Which words would you use to describe this product?',
+        title: 'Which word would you use to describe this product?',
         responses: [ 'cabbage', 'tomato', 'canteloupe', 'virginia' ],
         responseCount: [1, 6, 2, 1]
       },
