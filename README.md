@@ -1,6 +1,7 @@
-#react-survey app
+# react-survey app
 
 *Overview*:
+
 A simple survey app written with React/Redux/Express/Node on top of MySQL using Sequelize ORM and D3 for data visualization
 
 *Functionality*:
