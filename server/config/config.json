@@ -5,5 +5,12 @@
     "database": "appsumo",
     "host": "127.0.0.1",
     "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "fancy-sql-password-whichis-breaknotable",
+    "database": "appsumo",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
   }
 }
