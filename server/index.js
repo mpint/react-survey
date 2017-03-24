@@ -1,5 +1,5 @@
-console.log('PROCESS.ENV.DATABASE_URL', PROCESS.ENV.DATABASE_URL);
-console.log('PROCESS.ENV.NODE_ENV', PROCESS.ENV.NODE_ENV);
+console.log('PROCESS.ENV.DATABASE_URL', process.env.DATABASE_URL);
+console.log('PROCESS.ENV.NODE_ENV', process.env.NODE_ENV);
 var fs = require('fs');
 var express = require('express');
 var path = require('path');
